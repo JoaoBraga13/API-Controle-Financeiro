@@ -1,19 +1,22 @@
-const User = require('./User')
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm'
 
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import User from './User'
 
-@Entity('transaction')
-class Transaction {
+@Entity('transactions')
+export default class Transaction {
   @PrimaryGeneratedColumn('uuid')
   id!: string
 
   @Column()
   description!: string
 
-  @Column()
+  @Column('decimal')
   value!: number
 
-  @Column()
+  @Column({
+    type: 'enum',
+    enum: ['income', 'expense'],
+  })
   type!: 'income'|'expense'
 
   @Column()
@@ -22,8 +25,8 @@ class Transaction {
   @Column()
   date!: Date
 
-  @Column()
-  userId!: string
+  @ManyToOne(() => User, user => user.transactions)
+  user!: User
 }
 
-module.exports = Transaction
+
