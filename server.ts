@@ -1,5 +1,6 @@
 const app = require('./app')
-const AppDataSource = require('./src/database/conexao')
+// const AppDataSource = require('./src/database/conexao')
+import AppDataSource from './src/database/conexao'
 
 const port = 3333
 try {

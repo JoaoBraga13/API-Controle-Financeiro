@@ -1,6 +1,8 @@
 import 'reflect-metadata'
 const {DataSource} = require('typeorm')
 const dotenv = require('dotenv')
+import User from '../models/User'
+import Transaction from '../models/Transaction'
 
 dotenv.config()
 
@@ -13,10 +15,13 @@ const AppDataSource = new DataSource({
   database: process.env.DATABASE,
   synchronize: true,
   logging: false,
-  entities: ['src/models/*.{ts,js}'],
+  entities: [
+    User,
+    Transaction
+  ],
   migrations: ['src/database/migrations/*.{ts,js}']
 })
 
 
-//export default AppDataSource
-module.exports = AppDataSource
+export default AppDataSource
+//module.exports = AppDataSource

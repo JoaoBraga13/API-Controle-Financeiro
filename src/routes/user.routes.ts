@@ -1,9 +1,10 @@
-const express = require('express')
-const userController = require('../controllers/userController')
+import { Router } from 'express'
+import userController from '../controllers/userController'
+//const userController = require('../controllers/userController')
 
-const router = express.Router()
+const router = Router()
 
 //rotas
 router.post('/', userController.create)
 
-module.exports = router
+export default router
