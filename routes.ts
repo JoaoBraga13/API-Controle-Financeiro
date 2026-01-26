@@ -1,13 +1,17 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 // const userRoute = require('./src/routes/user.routes')
-import userRoute from './src/routes/user.routes'
+import userRoute from "./src/routes/user.routes";
+import authRoute from "./src/routes/auth.routes";
 
-router.get('/', (req: any, res: any) => {
-  res.send('Hello World')
-})
+router.get("/", (req: any, res: any) => {
+  res.send("Hello World");
+});
 
 //rotas usuários
-router.use('/users', userRoute)
+router.use("/users", userRoute);
 
-module.exports = router
+//rota login
+router.use("/auth", authRoute);
+
+module.exports = router;
