@@ -1,32 +1,30 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 
-import User from './User'
+import User from "./User";
 
-@Entity('transactions')
+@Entity("transactions")
 export default class Transaction {
-  @PrimaryGeneratedColumn('uuid')
-  id!: string
+  @PrimaryGeneratedColumn("uuid")
+  id!: string;
 
   @Column()
-  description!: string
+  description!: string;
 
-  @Column('decimal')
-  value!: number
+  @Column("decimal")
+  value!: number;
 
   @Column({
-    type: 'enum',
-    enum: ['income', 'expense'],
+    type: "enum",
+    enum: ["income", "expense"],
   })
-  type!: 'income'|'expense'
+  type!: "income" | "expense";
 
   @Column()
-  category!: string
+  category!: string;
 
   @Column()
-  date!: Date
+  date!: Date;
 
-  @ManyToOne(() => User, user => user.transactions)
-  user!: User
+  @ManyToOne(() => User, (user) => user.transactions)
+  user!: User;
 }
-
-
