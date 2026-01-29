@@ -33,6 +33,24 @@ class UserController {
 
     return res.status(200).send("usuário criado");
   }
+
+  async showProfile(req: Request, res: Response) {
+    //Exibir perfil
+    const userID = req.params.id;
+
+    const userRepository = AppDataSource.getRepository(User);
+
+    const showUser = await userRepository.findOne({
+      where: { id: userID },
+      select: ["id", "name", "email"],
+    });
+
+    if (!showUser) {
+      return res.status(404).send("usuário não encontrado");
+    } else {
+      return res.json(showUser);
+    }
+  }
 }
 
 export default new UserController();
