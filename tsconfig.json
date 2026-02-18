@@ -3,17 +3,20 @@
   "compilerOptions": {
     // File Layout
     "rootDir": ".",
-    "outDir": "./dist", //cria uma pasta com os arquivos ts compilados para js
+    "outDir": "./dist", //cria uma pasta com os arquivos ts compilados para js 
+    
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "commonjs",
     "target": "es2020",
-    "types": ["node"],
+    "types": ["node", "express"],
     // For nodejs:
     "lib": ["esnext", "DOM"],
-    // "types": ["node"],
+    //"types": ["node"],
     // and npm install -D @types/node
+
+    "typeRoots": ["./node_modules/@types", "./types"],
 
     // Other Outputs
     "sourceMap": true,
@@ -50,6 +53,9 @@
     //"./src"
     "app.ts",
     "server.ts",
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "./@types/**/*.d.ts",
+    "src/@types/**/*.d.ts",
+    "src/@types/express/index.d.ts"
   ]
 }

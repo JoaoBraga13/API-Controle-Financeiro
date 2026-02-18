@@ -5,11 +5,7 @@ interface JwtPaylod {
   id: string;
 }
 
-export function authMiddleware(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) {
+export function authMiddleware(req: any, res: Response, next: NextFunction) {
   const jwtAuthentication = req.headers.authorization;
 
   if (!jwtAuthentication) {
