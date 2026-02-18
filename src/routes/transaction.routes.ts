@@ -8,5 +8,6 @@ const router = Router();
 router.post("/create", authMiddleware, transaction.create);
 router.get("/show", authMiddleware, transaction.showTransaction);
 router.get("/show/:id", authMiddleware, transaction.showTransactionById);
+router.put("/update/:id", authMiddleware, transaction.updateTransaction);
 
 export default router;

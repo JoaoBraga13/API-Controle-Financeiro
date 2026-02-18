@@ -58,6 +58,34 @@ class TransactionController {
 
     return res.json(transaction);
   }
+
+  //PUT para atualizar transação
+  async updateTransaction(req: any, res: Response) {
+    const { id } = req.params;
+    const { description, value, type, category } = req.body;
+
+    const transactionRepository = AppDataSource.getRepository(Transaction);
+
+    const transaction = await transactionRepository.findOne({
+      where: { id, user: { id: req.userId } },
+    });
+    if (!transaction) {
+      return res.status(404).json({ error: "Transação não encontrada" });
+    }
+
+    const newTransaction = transactionRepository.merge(transaction, {
+      description: description,
+      value: value,
+      type: type,
+      category: category,
+    });
+
+    await transactionRepository.save(newTransaction);
+
+    return res
+      .status(201)
+      .json({ message: "Transação atualizada com sucesso!!", newTransaction });
+  }
 }
 
 export default new TransactionController();
