@@ -41,6 +41,23 @@ class TransactionController {
 
     return res.json(transactions);
   }
+
+  //GET de transação específica
+  async showTransactionById(req: any, res: Response) {
+    const { id } = req.params;
+
+    const transactionRepository = AppDataSource.getRepository(Transaction);
+
+    const transaction = await transactionRepository.findOne({
+      where: { id, user: { id: req.userId } },
+    });
+
+    if (!transaction) {
+      return res.status(404).json({ error: "Transação não encontrada" });
+    }
+
+    return res.json(transaction);
+  }
 }
 
 export default new TransactionController();
