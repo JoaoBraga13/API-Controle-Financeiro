@@ -6,5 +6,6 @@ const router = Router();
 
 //rotas
 router.post("/create", authMiddleware, transaction.create);
+router.get("/show", authMiddleware, transaction.showTransaction);
 
 export default router;

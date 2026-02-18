@@ -28,6 +28,19 @@ class TransactionController {
       .status(201)
       .json({ message: "Transação criada com sucesso", transaction });
   }
+
+  //GET das transações do usuário
+  async showTransaction(req: any, res: Response) {
+    const userId = req.userId;
+
+    const transactionRepository = AppDataSource.getRepository(Transaction);
+
+    const transactions = await transactionRepository.find({
+      where: { user: { id: userId } },
+    });
+
+    return res.json(transactions);
+  }
 }
 
 export default new TransactionController();
