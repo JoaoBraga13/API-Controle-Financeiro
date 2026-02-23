@@ -1,6 +1,7 @@
-import { request, Request, Response } from "express";
+import e, { request, Request, Response } from "express";
 import AppDataSource from "../database/conexao";
 import Transaction from "../models/Transaction";
+import { AppError } from "../errors/AppError";
 
 class TransactionController {
   //criação das transações
@@ -53,7 +54,8 @@ class TransactionController {
     });
 
     if (!transaction) {
-      return res.status(404).json({ error: "Transação não encontrada" });
+      //return res.status(404).json({ error: "Transação não encontrada" });
+      throw new AppError("Transação não encontrada", 404);
     }
 
     return res.json(transaction);
@@ -70,7 +72,8 @@ class TransactionController {
       where: { id, user: { id: req.userId } },
     });
     if (!transaction) {
-      return res.status(404).json({ error: "Transação não encontrada" });
+      //return res.status(404).json({ error: "Transação não encontrada" });
+      throw new AppError("Transação não encontrada", 404);
     }
 
     const newTransaction = transactionRepository.merge(transaction, {
@@ -98,7 +101,8 @@ class TransactionController {
     });
 
     if (!transaction) {
-      return res.status(404).json({ error: "Transação não encontrada" });
+      //return res.status(404).json({ error: "Transação não encontrada" });
+      throw new AppError("Transação não encontrada", 404);
     }
 
     await transactionRepository.remove(transaction);

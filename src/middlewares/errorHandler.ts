@@ -1,14 +1,15 @@
 import { Request, Response, NextFunction } from "express";
+import { AppError } from "../errors/AppError";
 
 export function errorHandler(
-  err: any,
+  err: Error,
   req: Request,
   res: Response,
   next: NextFunction,
 ) {
-  console.error(err);
+  if (err instanceof AppError) {
+    return res.status(err.status).json({ error: err.message });
+  }
 
-  return res.status(err.status || 500).json({
-    error: err.message || "Internal Server Error",
-  });
+  return res.status(500).json({ error: "Erro Interno do Servidor" });
 }
