@@ -86,6 +86,26 @@ class TransactionController {
       .status(201)
       .json({ message: "Transação atualizada com sucesso!!", newTransaction });
   }
+
+  // DELETE para deletar transação
+  async deleteTransaction(req: any, res: Response) {
+    const { id } = req.params;
+
+    const transactionRepository = AppDataSource.getRepository(Transaction);
+
+    const transaction = await transactionRepository.findOne({
+      where: { id, user: { id: req.userId } },
+    });
+
+    if (!transaction) {
+      return res.status(404).json({ error: "Transação não encontrada" });
+    }
+
+    await transactionRepository.remove(transaction);
+    return res
+      .status(200)
+      .json({ message: "Transação excluída com sucesso!!" });
+  }
 }
 
 export default new TransactionController();
