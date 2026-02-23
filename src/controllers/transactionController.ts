@@ -106,6 +106,28 @@ class TransactionController {
       .status(200)
       .json({ message: "Transação excluída com sucesso!!" });
   }
+
+  //Resumo financeiro
+  async summary(req: any, res: Response) {
+    const transactionRepository = AppDataSource.getRepository(Transaction);
+    const transactions = await transactionRepository.find({
+      where: { user: { id: req.userId } },
+    });
+
+    const totalIncome = transactions
+      .filter((t: Transaction) => t.type === "income")
+      .reduce((sum: number, t: Transaction) => sum + Number(t.value), 0);
+
+    const totalExpense = transactions
+      .filter((t: Transaction) => t.type === "expense")
+      .reduce((sum: number, t: Transaction) => sum + Number(t.value), 0);
+
+    return res.status(200).json({
+      totalIncome,
+      totalExpense,
+      balance: totalIncome - totalExpense,
+    });
+  }
 }
 
 export default new TransactionController();
