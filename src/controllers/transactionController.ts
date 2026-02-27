@@ -1,4 +1,4 @@
-import e, { request, Request, Response } from "express";
+import e, { Request, Response } from "express";
 import AppDataSource from "../database/conexao";
 import Transaction from "../models/Transaction";
 import { AppError } from "../errors/AppError";
@@ -54,7 +54,6 @@ class TransactionController {
     });
 
     if (!transaction) {
-      //return res.status(404).json({ error: "Transação não encontrada" });
       throw new AppError("Transação não encontrada", 404);
     }
 
@@ -72,7 +71,6 @@ class TransactionController {
       where: { id, user: { id: req.userId } },
     });
     if (!transaction) {
-      //return res.status(404).json({ error: "Transação não encontrada" });
       throw new AppError("Transação não encontrada", 404);
     }
 
@@ -101,7 +99,6 @@ class TransactionController {
     });
 
     if (!transaction) {
-      //return res.status(404).json({ error: "Transação não encontrada" });
       throw new AppError("Transação não encontrada", 404);
     }
 

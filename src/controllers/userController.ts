@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
-import { error } from "node:console";
 import AppDataSource from "../database/conexao";
-//const AppDataSource = require('../database/conexao')
-//const User = require('../models/User')
 import User from "../models/User";
 
 class UserController {
@@ -41,7 +38,7 @@ class UserController {
     const userRepository = AppDataSource.getRepository(User);
 
     const showUser = await userRepository.findOne({
-      where: { id: userID },
+      where: { id: userID as string },
       select: ["id", "name", "email"],
     });
 
@@ -54,4 +51,3 @@ class UserController {
 }
 
 export default new UserController();
-//module.exports = new UserController()

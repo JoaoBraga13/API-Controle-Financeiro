@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
-// const userRoute = require('./src/routes/user.routes')
+import { Router } from "express";
 import userRoute from "./src/routes/user.routes";
 import authRoute from "./src/routes/auth.routes";
 import transactionRoute from "./src/routes/transaction.routes";
+
+const router = Router();
 
 router.get("/", (req: any, res: any) => {
   res.send("Hello World");
@@ -18,4 +18,4 @@ router.use("/auth", authRoute);
 //rota transações
 router.use("/transactions", transactionRoute);
 
-module.exports = router;
+export default router;
